@@ -69,5 +69,6 @@ public class Song {
 	public boolean compareSong(Song song)
 	{
 		// TODO: By name & artist? Or UUID?
+		return true;
 	}
 }
