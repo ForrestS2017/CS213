@@ -21,11 +21,9 @@ public class Song {
 		String id = UUID.randomUUID().toString();
 		ID = id.isEmpty() ? id : null;
 	}
-	
-	public boolean setName(String name) {
-		if (name.isBlank()) return false;
-		this.name = name;
-		return true;
+
+	public void setAlbum(String album) {
+		this.album = album;
 	}
 
 	public boolean setArtist(String artist) {
@@ -34,24 +32,26 @@ public class Song {
 		return true;
 	}
 
-	public void setAlbum(String album) {
-		this.album = album;
+	public boolean setName(String name) {
+		if (name.isBlank()) return false;
+		this.name = name;
+		return true;
 	}
 
 	public void setYear(String year) {
 		this.year = year;
 	}
-	
-	public String getName() {
-		return this.name;
+
+	public String getAlbum() {
+		return this.album;
 	}
 
 	public String getArtist() {
 		return this.artist;
 	}
-
-	public String getAlbum() {
-		return this.album;
+	
+	public String getName() {
+		return this.name;
 	}
 
 	public String getYear() {
@@ -60,5 +60,14 @@ public class Song {
 
 	public String getID() {
 		return this.ID;
+	}
+
+	/**
+	 * @param song the song to compare this song to
+	 * @return true if the song exists already
+	 */
+	public boolean compareSong(Song song)
+	{
+		// TODO: By name & artist? Or UUID?
 	}
 }
