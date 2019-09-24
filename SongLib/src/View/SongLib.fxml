@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="Root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="Root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ListController">
    <top>
       <MenuBar id="MenuBar" BorderPane.alignment="CENTER">
         <menus>
           <Menu id="FileMenu" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem id="MenuItemAddSong" mnemonicParsing="false" onAction="#AddSong" text="New Song" />
-                  <MenuItem id="MenuItemDeleteAll" mnemonicParsing="false" onAction="#DeleteAll" text="Delete All" />
+              <MenuItem id="MenuItemAddSong" mnemonicParsing="false" text="New Song" />
+                  <MenuItem id="MenuItemDeleteAll" mnemonicParsing="false" text="Delete All" />
             </items>
           </Menu>
         </menus>
@@ -33,14 +33,14 @@
                <children>
                   <ButtonBar id="ButtonBar" layoutX="100.0" layoutY="295.0" prefHeight="40.0" prefWidth="189.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.60000000000002">
                     <buttons>
-                      <Button id="ButtonDelete" alignment="CENTER" mnemonicParsing="false" onAction="#DeleteSong" text="Delete" textAlignment="CENTER" translateX="-20.0" />
-                        <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateSong" text="Update" textAlignment="CENTER" />
+                      <Button id="ButtonDelete" alignment="CENTER" mnemonicParsing="false" text="Delete" textAlignment="CENTER" translateX="-20.0" />
+                        <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" text="Update" textAlignment="CENTER" />
                     </buttons>
                   </ButtonBar>
-                  <Text id="TextSongName" fx:id="SongName" layoutX="146.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongName}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongArtist" fx:id="SongArtist" layoutX="146.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongArtist}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongAlbum" fx:id="SongArtist1" layoutX="146.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongAlbum}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongYear" fx:id="SongArtist2" layoutX="146.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongYear}" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <Text id="TextSongName" layoutX="146.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongName}" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <Text id="TextSongArtist" layoutX="146.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongArtist}" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <Text id="TextSongAlbum" layoutX="146.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongAlbum}" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <Text id="TextSongYear" layoutX="146.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongYear}" textAlignment="CENTER" wrappingWidth="105.13671875" />
                </children>
             </AnchorPane>
         </content>

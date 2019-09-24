@@ -1,4 +1,4 @@
-package View;
+package Control;
 
 /**
  * @author Forrest Smith
