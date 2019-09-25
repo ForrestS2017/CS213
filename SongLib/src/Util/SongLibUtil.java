@@ -12,7 +12,7 @@ public class SongLibUtil {
 	
 	private static final String FILE_PATH = "/data/SongList.JSON"; 
 	
-	/*
+	/**
 	 * @param song Song to add
 	 * @return True if successful, False if failed
 	 * Write new song details to JSON file
@@ -23,7 +23,7 @@ public class SongLibUtil {
 		return false;
 	}
 	
-	/*
+	/**
 	 * @param song Song to edit
 	 * @return True if successful, False if failed
 	 * Edit song details in JSON file
@@ -34,7 +34,7 @@ public class SongLibUtil {
 		return false;
 	}
 	
-	/*
+	/**
 	 * @param song Song to remove
 	 * @return True if successful, False if failed
 	 * Delete song from  JSON file

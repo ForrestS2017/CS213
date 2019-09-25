@@ -16,31 +16,31 @@ import javafx.stage.Stage;
 public class ListController {
 	
 	
-	/*
+	/**
 	 * Side-panel list
 	 */
 	@FXML
 	ListView<String> listView;
 
-	/*
+	/**
 	 * Side-panel list casted as Observable List
 	 */
 	@FXML
 	private ObservableList<String> obsList;
 	
-	/*
+	/**
 	 * Buttons in the Song Details pane
 	 */
 	@FXML
 	Button deleteButton, updateButton;
 	
-	/*
+	/**
 	 * Menu items under "File"
 	 */
 	@FXML
 	MenuItem newSongMenuItem, deleteAllMenuItem;
 	
-	/*
+	/**
 	 * Iniialize list	
 	 */
 	public void start(Stage mainStage)
@@ -49,7 +49,7 @@ public class ListController {
 		if (!obsList.isEmpty()) listView.setItems(obsList);
 	}
 	
-	/*
+	/**
 	 * @param mainStage
 	 * Show selected song in details pane
 	 */
@@ -59,7 +59,7 @@ public class ListController {
 		return;
 	}
 	
-	/*
+	/**
 	 * @param mainStage
 	 * Show selected song details in dialog
 	 */

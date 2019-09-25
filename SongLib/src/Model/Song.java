@@ -9,6 +9,9 @@ import java.util.UUID;
 
 public class Song {
     
+	/**
+	 * Required fields for a song
+	 */
 	private String album, artist, name, year, ID;
 	
 	public Song(String album, String artist, String name, String year)
