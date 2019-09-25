@@ -40,18 +40,29 @@ public class ListController {
 	@FXML
 	MenuItem newSongMenuItem, deleteAllMenuItem;
 	
+	/*
+	 * Iniialize list	
+	 */
 	public void start(Stage mainStage)
 	{
 		obsList = FXCollections.observableArrayList();	// TODO: fill somehow
-		listView.setItems(obsList);
+		if (!obsList.isEmpty()) listView.setItems(obsList);
 	}
 	
+	/*
+	 * @param mainStage
+	 * Show selected song in details pane
+	 */
 	private void showItem(Stage mainStage)
 	{
 		// TODO
 		return;
 	}
 	
+	/*
+	 * @param mainStage
+	 * Show selected song details in dialog
+	 */
 	private void showItemInputDialog(Stage mainStage)
 	{
 		// TODO
