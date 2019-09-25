@@ -1,5 +1,6 @@
 package App;
 
+import Control.ListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,7 +22,11 @@ public class SongLib extends Application {
     public void start(Stage primaryStage) throws Exception{
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(getClass().getResource(LAYOUT_PATH));
+    	
     	BorderPane root = (BorderPane)loader.load();
+    	ListController listController = loader.getController();
+    	listController.start(primaryStage);
+    	
     	Scene scene = new Scene(root);
     	primaryStage.setScene(scene);
     	primaryStage.setTitle(APPLICATION_NAME);

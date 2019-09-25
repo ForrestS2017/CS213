@@ -29,7 +29,7 @@
    <center>
       <TitledPane id="TitlePaneSong" animated="false" collapsible="false" text="{SongName}" BorderPane.alignment="TOP_CENTER">
         <content>
-          <AnchorPane id="AnchroPaneSong" minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="398.0">
+          <AnchorPane id="AnchroPaneSongDetails" minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="398.0">
                <children>
                   <ButtonBar id="ButtonBar" layoutX="100.0" layoutY="295.0" prefHeight="40.0" prefWidth="189.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.60000000000002">
                     <buttons>
