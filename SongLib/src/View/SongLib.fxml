@@ -8,12 +8,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="Root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ListController">
+<BorderPane id="Root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ListController">
    <top>
       <MenuBar id="MenuBar" BorderPane.alignment="CENTER">
         <menus>
@@ -27,7 +28,7 @@
       </MenuBar>
    </top>
    <center>
-      <TitledPane id="TitlePaneSong" animated="false" collapsible="false" text="{SongName}" BorderPane.alignment="TOP_CENTER">
+      <TitledPane id="TitlePaneSong" animated="false" collapsible="false" prefHeight="375.0" prefWidth="528.0" text="Song Details" BorderPane.alignment="TOP_CENTER">
         <content>
           <AnchorPane id="AnchroPaneSongDetails" minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="398.0">
                <children>
@@ -37,10 +38,18 @@
                         <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" text="Update" textAlignment="CENTER" />
                     </buttons>
                   </ButtonBar>
-                  <Text id="TextSongName" layoutX="146.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongName}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongArtist" layoutX="146.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongArtist}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongAlbum" layoutX="146.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongAlbum}" textAlignment="CENTER" wrappingWidth="105.13671875" />
-                  <Text id="TextSongYear" layoutX="146.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongYear}" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <Text id="TextSongName" layoutX="66.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongName}" textAlignment="CENTER" wrappingWidth="200.0" />
+                  <Text id="TextSongArtist" layoutX="66.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongArtist}" textAlignment="CENTER" wrappingWidth="200.0" />
+                  <Text id="TextSongAlbum" layoutX="66.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongAlbum}" textAlignment="CENTER" wrappingWidth="200.0" />
+                  <Text id="TextSongYear" layoutX="66.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SongYear}" textAlignment="CENTER" wrappingWidth="200.0" />
+                  <TextArea id="EditSongName" layoutX="373.0" layoutY="48.0" prefHeight="34.0" prefWidth="200.0" />
+                  <Text id="TitleEditSongName" layoutX="420.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song Name" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <TextArea id="EditArtist" layoutX="373.0" layoutY="104.0" prefHeight="34.0" prefWidth="200.0" />
+                  <Text id="TitleEditArtist" layoutX="420.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <TextArea id="EditAlbum" layoutX="373.0" layoutY="164.0" prefHeight="34.0" prefWidth="200.0" />
+                  <Text id="TitleEditAlbum" layoutX="420.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" textAlignment="CENTER" wrappingWidth="105.13671875" />
+                  <TextArea id="EditYear" layoutX="373.0" layoutY="225.0" prefHeight="34.0" prefWidth="200.0" />
+                  <Text id="TitleEditYear" layoutX="420.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" textAlignment="CENTER" wrappingWidth="105.13671875" />
                </children>
             </AnchorPane>
         </content>
