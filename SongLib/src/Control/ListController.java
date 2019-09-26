@@ -1,5 +1,6 @@
 package Control;
 
+import Model.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,7 +42,7 @@ public class ListController {
 	MenuItem newSongMenuItem, deleteAllMenuItem;
 	
 	/**
-	 * Iniialize list	
+	 * Initialize list	
 	 */
 	public void start(Stage mainStage)
 	{
@@ -50,22 +51,39 @@ public class ListController {
 	}
 	
 	/**
-	 * @param mainStage
+	 * @param selectedSong
 	 * Show selected song in details pane
 	 */
-	private void showItem(Stage mainStage)
+	private void showItem(Song selectedSong)
 	{
 		// TODO
 		return;
 	}
 	
 	/**
-	 * @param mainStage
-	 * Show selected song details in dialog
+	 * Update the current song with details in the text areas
 	 */
-	private void showItemInputDialog(Stage mainStage)
+	@FXML
+	private void UpdateSong()
 	{
 		// TODO
-		return;
+	}
+	
+	/**
+	 * Delete selected song
+	 */
+	@FXML
+	private void DeleteSong()
+	{
+		// TODO
+	}
+	
+	/**
+	 * Add new song ith the details in the text areas
+	 */
+	@FXML
+	private void AddSong()
+	{
+		// TODO
 	}
 }
