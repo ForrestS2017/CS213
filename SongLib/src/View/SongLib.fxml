@@ -21,7 +21,7 @@
                     <buttons>
                       <Button id="ButtonDelete" mnemonicParsing="false" onAction="#AddSong" text="Delete" textAlignment="CENTER" translateX="-80.0" />
                         <Button id="ButtonUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UpdateSong" text="Update" textAlignment="CENTER" translateX="-40.0" />
-                        <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateSong" text="Add" textAlignment="CENTER" />
+                        <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#AddSong" text="Add" textAlignment="CENTER" />
                     </buttons>
                   </ButtonBar>
                   <Text id="TextSongName" layoutX="66.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No songs in list!" textAlignment="CENTER" wrappingWidth="200.0" />

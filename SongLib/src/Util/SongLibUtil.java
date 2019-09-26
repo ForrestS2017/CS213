@@ -1,5 +1,16 @@
 package Util;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import Model.Song;
 
 /**
@@ -10,17 +21,32 @@ import Model.Song;
 public class SongLibUtil {
     // TODO
 	
-	private static final String FILE_PATH = "/data/SongList.JSON"; 
+	private static final String FILE_PATH = "SongList.JSON"; 
 	
 	/**
 	 * @param song Song to add
 	 * @return True if successful, False if failed
+	 * Append new song details to JSON file if song is not already stored
+	 */
+	public static void AddSong(Song song) throws IOException
+	{
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String songJSON = gson.toJson(song);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+		writer.append(songJSON);
+		writer.close();
+		System.out.println("Appended: " + songJSON + "\nTo: " + FILE_PATH);
+	}
+	
+	/**
+	 * @return List of stored songs
 	 * Write new song details to JSON file
 	 */
-	public static boolean StoreSong(Song song)
+	public static ObservableList<Song> LoadSongs() throws IOException
 	{
-		// TODO
-		return false;
+		Gson gson = new Gson();
+		BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+		return FXCollections.observableArrayList(gson.fromJson(reader, Song.class));
 	}
 	
 	/**
@@ -28,10 +54,9 @@ public class SongLibUtil {
 	 * @return True if successful, False if failed
 	 * Edit song details in JSON file
 	 */
-	public static boolean EditSong(Song song)
+	public static void EditSong()
 	{
 		// TODO
-		return false;
 	}
 	
 	/**
@@ -39,9 +64,16 @@ public class SongLibUtil {
 	 * @return True if successful, False if failed
 	 * Delete song from  JSON file
 	 */
-	public static boolean DeleteSong(Song song)
+	public static void DeleteSong(ObservableList<Song> songList, Song song) throws IOException
 	{
-		// TODO
-		return false;
+		if(songList.remove(song))
+		{
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String songJSON = gson.toJson(song);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false));
+			writer.write(songJSON);
+			writer.close();
+			System.out.println("Wrote: " + songJSON + "\nTo: " + FILE_PATH);
+		}
 	}
 }

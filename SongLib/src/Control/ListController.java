@@ -1,6 +1,7 @@
 package Control;
 
 import Model.Song;
+import Util.SongLibUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -66,7 +67,6 @@ public class ListController {
 	@FXML
 	private void UpdateSong()
 	{
-		// TODO
 	}
 	
 	/**
@@ -79,11 +79,23 @@ public class ListController {
 	}
 	
 	/**
-	 * Add new song ith the details in the text areas
+	 * Add new song with the details in the text areas
 	 */
 	@FXML
 	private void AddSong()
 	{
-		// TODO
+		System.out.println("Adding Song");
+		Song song = tempSongList[1];
+		try
+		{
+			SongLibUtil.AddSong(song);
+		} catch (Exception e)
+		{
+			System.out.println("Oops: " + e.toString());
+		}
 	}
+	
+	/* Test Data */
+	Song[] tempSongList = new Song[]{	new Song("Top Hits", "Crush 40", "Live and Learn", "2005"),
+										new Song("Top Kids Bops", "Kids Bops", "Despactio", "1930")};
 }
