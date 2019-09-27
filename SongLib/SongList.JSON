@@ -6,7 +6,7 @@
 }
 {
   "album": "Tester",
-  "artist": "Tester2",
+  "artist": "b",
   "name": "a",
   "year": "Tester4"
 }
@@ -14,5 +14,11 @@
   "album": "Tester",
   "artist": "Tester2",
   "name": "c",
+  "year": "Tester4"
+}
+{
+  "album": "Tester",
+  "artist": "a",
+  "name": "a",
   "year": "Tester4"
 }

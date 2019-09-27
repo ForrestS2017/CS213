@@ -9,14 +9,13 @@ import com.google.gson.JsonStreamParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author Forrest Smith
@@ -28,7 +27,7 @@ public class ListController {
 	 * Side-panel list
 	 */
 	@FXML
-	ListView<String> listView;
+	ListView<Song> listView;
 
 	/**
 	 * Side-panel list casted as Observable List
@@ -53,7 +52,24 @@ public class ListController {
 	 */
 	@FXML
 	TextArea song, artist, album, year;
-	
+
+	private static void order(ObservableList<Song> songs) {
+		Collections.sort(songs, new Comparator() {
+			public int compare(Object o1, Object o2) {
+				String x1 = ((Song) o1).getName();
+				String x2 = ((Song) o2).getName();
+				int sComp = x1.compareTo(x2);
+
+				if (sComp != 0) {
+					return sComp;
+				}
+
+				x1 = ((Song) o1).getArtist();
+				x2 = ((Song) o2).getArtist();
+				return x1.compareTo(x2);
+			}});
+	}
+
 	/**
 	 * Initialize list	
 	 */
@@ -61,7 +77,7 @@ public class ListController {
 	private InputStream Reader;
 
 	public void start(Stage mainStage) throws IOException {
-		obsList = FXCollections.observableArrayList();
+		ObservableList<Song> obsList = FXCollections.observableArrayList();
 		InputStream is = new FileInputStream(FILE_PATH);
 		Reader r = new InputStreamReader(is, "UTF-8");
 		Gson gson = new GsonBuilder().create();
@@ -72,17 +88,30 @@ public class ListController {
 			JsonElement e = p.next();
 			if (e.isJsonObject()) {
 				Song newSong = gson.fromJson(e, Song.class);
-				songObjs.add(newSong);
-				obsList.add(newSong.getName() + ", " + newSong.getArtist());
+				obsList.add(newSong);
 			}
 		}
-		obsList.sort(String::compareToIgnoreCase); //Sort by song name alphabetically
+
+		order(obsList);
 		listView.setItems(obsList);
+		listView.setCellFactory((list) -> {
+			return new ListCell<Song>() {
+				protected void updateItem(Song item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(item.getName() + " " + item.getArtist());
+					}
+				}
+			};
+		});
 
 		//Add listeners for all the songs in the song list so that when clicked, info populates fields
-//		listView.getSelectionModel()
-//				.selectedIndexProperty()
-//				.addListener((obs,oldVal,newVal) -> showItem(songObjs));
+		listView.getSelectionModel()
+				.selectedIndexProperty()
+				.addListener((obs,oldVal,newVal) -> showItem(listView.getSelectionModel().getSelectedItem()));
 	}
 	
 	/**
