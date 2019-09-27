@@ -120,7 +120,10 @@ public class ListController {
 	 */
 	private void showItem(Song selectedSong)
 	{
-		// TODO
+		song.setText(selectedSong.getName());
+		artist.setText(selectedSong.getArtist());
+		album.setText(selectedSong.getAlbum());
+		year.setText(selectedSong.getYear());
 		return;
 	}
 	
