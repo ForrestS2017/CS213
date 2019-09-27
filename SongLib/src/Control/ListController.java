@@ -52,18 +52,24 @@ public class ListController {
 	TextArea song, artist, album, year;
 
 	private void insertAlphabetically(Song song) {
+		if(obsList.size() == 0) {
+			obsList.add(0, song);
+			return;
+		}
 		for (int i=0; i<obsList.size(); i++) {
 			if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) < 0) {
 				obsList.add(i, song);
-				break;
+				return;
 			}
 			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
 				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
 					obsList.add(i, song);
-					break;
+					return;
 				}
 			}
 		}
+		obsList.add(obsList.size(), song); //Since this was reached it must be the last alphabetically
+		return;
 	}
 
 	/**
@@ -80,11 +86,13 @@ public class ListController {
 		JsonStreamParser p = new JsonStreamParser(r);
 
 		ArrayList<Song> songObjs = new ArrayList<Song>();
-		while (p.hasNext()) { //Convert all data into Song objects from SongList.JSON
-			JsonElement e = p.next();
-			if (e.isJsonObject()) {
-				Song newSong = gson.fromJson(e, Song.class);
-				obsList.add(newSong);
+		if(is.available() !=0) {
+			while (p.hasNext()) { //Convert all data into Song objects from SongList.JSON
+				JsonElement e = p.next();
+				if (e.isJsonObject()) {
+					Song newSong = gson.fromJson(e, Song.class);
+					obsList.add(newSong);
+				}
 			}
 		}
 
