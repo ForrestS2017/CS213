@@ -42,6 +42,6 @@
       </TitledPane>
    </center>
    <left>
-      <ListView id="ListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="listView" id="ListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

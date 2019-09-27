@@ -3,6 +3,9 @@ package Control;
 import Model.Song;
 import Util.SongLibUtil;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonStreamParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,9 +15,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * @author Forrest Smith
@@ -56,18 +58,31 @@ public class ListController {
 	 * Initialize list	
 	 */
 	private static final String FILE_PATH = "SongList.JSON";
-	public void start(Stage mainStage) throws IOException {
-		obsList = FXCollections.observableArrayList();	// TODO: fill somehow
-		if (!obsList.isEmpty()) listView.setItems(obsList);
+	private InputStream Reader;
 
-		Gson gson = new Gson();
-		BufferedReader br = new BufferedReader(new FileReader(FILE_PATH)); //Read in songs from JSON file
-		
-		Song newSong = gson.fromJson(br, Song.class); //
-		System.out.println(newSong.getName());
-		System.out.println(newSong.getArtist());
-		System.out.println(newSong.getYear());
-		System.out.println(newSong.getAlbum());
+	public void start(Stage mainStage) throws IOException {
+		obsList = FXCollections.observableArrayList();
+		InputStream is = new FileInputStream(FILE_PATH);
+		Reader r = new InputStreamReader(is, "UTF-8");
+		Gson gson = new GsonBuilder().create();
+		JsonStreamParser p = new JsonStreamParser(r);
+
+		ArrayList<Song> songObjs = new ArrayList<Song>();
+		while (p.hasNext()) { //Convert all data into Song objects from SongList.JSON
+			JsonElement e = p.next();
+			if (e.isJsonObject()) {
+				Song newSong = gson.fromJson(e, Song.class);
+				songObjs.add(newSong);
+				obsList.add(newSong.getName() + ", " + newSong.getArtist());
+			}
+		}
+		obsList.sort(String::compareToIgnoreCase); //Sort by song name alphabetically
+		listView.setItems(obsList);
+
+		//Add listeners for all the songs in the song list so that when clicked, info populates fields
+//		listView.getSelectionModel()
+//				.selectedIndexProperty()
+//				.addListener((obs,oldVal,newVal) -> showItem(songObjs));
 	}
 	
 	/**
