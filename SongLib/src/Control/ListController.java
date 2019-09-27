@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonStreamParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class ListController {
 	 * Side-panel list casted as Observable List
 	 */
 	@FXML
-	private ObservableList<String> obsList;
+	private ObservableList<Song> obsList;
 	
 	/**
 	 * Buttons in the Song Details pane
@@ -77,7 +78,7 @@ public class ListController {
 	private InputStream Reader;
 
 	public void start(Stage mainStage) throws IOException {
-		ObservableList<Song> obsList = FXCollections.observableArrayList();
+		obsList = FXCollections.observableArrayList();
 		InputStream is = new FileInputStream(FILE_PATH);
 		Reader r = new InputStreamReader(is, "UTF-8");
 		Gson gson = new GsonBuilder().create();
@@ -148,13 +149,29 @@ public class ListController {
 	 * Add new song with the details in the text areas
 	 */
 	@FXML
-	private void AddSong()
+	private void AddSong(ActionEvent actionEvent)
 	{
 		System.out.println("Adding Song");
 		Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 		try
 		{
 			SongLibUtil.AddSong(newSong);
+			obsList.add(newSong);
+		} catch (Exception e)
+		{
+			System.out.println("Oops: " + e.toString());
+		}
+	}
+
+	/**
+	 * Delete all songs
+	 */
+	@FXML
+	private void DeleteAll()
+	{
+		try
+		{
+			SongLibUtil.DeleteAll();
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());

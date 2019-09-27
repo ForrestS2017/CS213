@@ -21,4 +21,19 @@
   "artist": "a",
   "name": "a",
   "year": "Tester4"
+}{
+  "name": "Campfire Song\t",
+  "artist": "",
+  "album": "Spongebob",
+  "year": ""
+}{
+  "name": "Sunflower",
+  "artist": "Top Bopz",
+  "album": "Kidz bop",
+  "year": "1880"
+}{
+  "name": "Candy Shop",
+  "artist": "",
+  "album": "50 Bop",
+  "year": "1880"
 }

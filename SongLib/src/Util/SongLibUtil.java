@@ -1,17 +1,12 @@
 package Util;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
+import Model.Song;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import Model.Song;
+import java.io.*;
 
 /**
  * @author Forrest Smith
@@ -75,5 +70,15 @@ public class SongLibUtil {
 			writer.close();
 			System.out.println("Wrote: " + songJSON + "\nTo: " + FILE_PATH);
 		}
+	}
+
+	/**
+	 * Deletes all content from JSON file
+	 */
+	public static void DeleteAll() throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false));
+		writer.write("");
+		writer.close();
+		System.out.println("Cleared song list");
 	}
 }
