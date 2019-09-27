@@ -19,7 +19,7 @@
                <children>
                   <ButtonBar id="ButtonBar" layoutX="94.0" layoutY="295.0" prefHeight="40.0" prefWidth="364.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="153.20000000000005">
                     <buttons>
-                      <Button id="ButtonDelete" mnemonicParsing="false" onAction="#AddSong" text="Delete" textAlignment="CENTER" translateX="-80.0" />
+                      <Button id="ButtonDelete" mnemonicParsing="false" onAction="#DeleteSong" text="Delete" textAlignment="CENTER" translateX="-80.0" />
                         <Button id="ButtonUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UpdateSong" text="Update" textAlignment="CENTER" translateX="-40.0" />
                         <Button id="ButtonUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#AddSong" text="Add" textAlignment="CENTER" />
                     </buttons>

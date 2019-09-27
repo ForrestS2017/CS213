@@ -8,15 +8,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonStreamParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author Forrest Smith
@@ -54,21 +51,19 @@ public class ListController {
 	@FXML
 	TextArea song, artist, album, year;
 
-	private static void order(ObservableList<Song> songs) {
-		Collections.sort(songs, new Comparator() {
-			public int compare(Object o1, Object o2) {
-				String x1 = ((Song) o1).getName();
-				String x2 = ((Song) o2).getName();
-				int sComp = x1.compareToIgnoreCase(x2);
-
-				if (sComp != 0) {
-					return sComp;
+	private void insertAlphabetically(Song song) {
+		for (int i=0; i<obsList.size(); i++) {
+			if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) < 0) {
+				obsList.add(i, song);
+				break;
+			}
+			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
+				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
+					obsList.add(i, song);
+					break;
 				}
-
-				x1 = ((Song) o1).getArtist();
-				x2 = ((Song) o2).getArtist();
-				return x1.compareToIgnoreCase(x2);
-			}});
+			}
+		}
 	}
 
 	/**
@@ -93,7 +88,6 @@ public class ListController {
 			}
 		}
 
-		order(obsList);
 		listView.setItems(obsList);
 		listView.setCellFactory((list) -> {
 			return new ListCell<Song>() {
@@ -112,7 +106,10 @@ public class ListController {
 		//Add listeners for all the songs in the song list so that when clicked, info populates fields
 		listView.getSelectionModel()
 				.selectedIndexProperty()
-				.addListener((obs,oldVal,newVal) -> showItem(listView.getSelectionModel().getSelectedItem()));
+				.addListener((e) -> showItem(listView.getSelectionModel().getSelectedItem()));
+
+		//Select first song in list
+		listView.getSelectionModel().select(0);
 	}
 	
 	/**
@@ -125,7 +122,6 @@ public class ListController {
 		artist.setText(selectedSong.getArtist());
 		album.setText(selectedSong.getAlbum());
 		year.setText(selectedSong.getYear());
-		return;
 	}
 	
 	/**
@@ -142,22 +138,30 @@ public class ListController {
 	@FXML
 	private void DeleteSong()
 	{
-		// TODO
+		Song selected = listView.getSelectionModel().getSelectedItem();
+		try
+		{
+			obsList.remove(selected);
+			SongLibUtil.WriteToJSON(obsList, selected);
+		} catch (Exception e)
+		{
+			System.out.println("Oops: " + e.toString());
+		}
+
 	}
 	
 	/**
 	 * Add new song with the details in the text areas
 	 */
 	@FXML
-	private void AddSong(ActionEvent actionEvent)
+	private void AddSong()
 	{
 		System.out.println("Adding Song");
 		Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 		try
 		{
-			SongLibUtil.AddSong(newSong);
-			obsList.add(newSong);
-			order(obsList);
+			insertAlphabetically(newSong); //Inserts the new song in the correct place of the array list
+			SongLibUtil.WriteToJSON(obsList, newSong);
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());

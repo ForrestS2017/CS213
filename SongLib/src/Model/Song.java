@@ -14,7 +14,7 @@ public class Song {
 	 */
 	private String name, artist, album, year, ID;
 	
-	public Song(String name, String album, String artist, String year)
+	public Song(String name, String artist, String album, String year)
 	{
 		this.name = name;
 		this.artist = artist;

@@ -16,21 +16,40 @@ import java.io.*;
 public class SongLibUtil {
     // TODO
 	
-	private static final String FILE_PATH = "SongList.JSON"; 
-	
+	private static final String FILE_PATH = "SongList.JSON";
+
 	/**
 	 * @param song Song to add
 	 * @return True if successful, False if failed
 	 * Append new song details to JSON file if song is not already stored
 	 */
-	public static void AddSong(Song song) throws IOException
+//	public static void AddSong(Song song) throws IOException
+//	{
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		String songJSON = gson.toJson(song);
+//		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+//		writer.append(songJSON);
+//		writer.close();
+//		System.out.println("Appended: " + songJSON + "\nTo: " + FILE_PATH);
+//	}
+
+	//My reasoning for using this instead of the add/write method is that it's easier to just rewrite the file each time since
+	//the songs have to be in alphabetical order. Would be a pain to append to the correct place in the JSON file for every insert
+	public static void WriteToJSON(ObservableList<Song> songList, Song song) throws IOException
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String songJSON = gson.toJson(song);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
-		writer.append(songJSON);
+		String songListJSON = gson.toJson(songList);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false));
+		songList.forEach((n) -> {
+			try {
+				writer.append(gson.toJson(n));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+
 		writer.close();
-		System.out.println("Appended: " + songJSON + "\nTo: " + FILE_PATH);
+		System.out.println("Appended: " + song.getName() + "\nTo: " + FILE_PATH);
 	}
 	
 	/**
@@ -59,18 +78,25 @@ public class SongLibUtil {
 	 * @return True if successful, False if failed
 	 * Delete song from  JSON file
 	 */
-	public static void DeleteSong(ObservableList<Song> songList, Song song) throws IOException
-	{
-		if(songList.remove(song))
-		{
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String songJSON = gson.toJson(song);
-			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false));
-			writer.write(songJSON);
-			writer.close();
-			System.out.println("Wrote: " + songJSON + "\nTo: " + FILE_PATH);
-		}
-	}
+//	public static void DeleteSong(ObservableList<Song> songList, Song song) throws IOException
+//	{
+//		if(songList.remove(song))
+//		{
+//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//			String songListJSON = gson.toJson(songList);
+//			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false));
+//			songList.forEach((n) -> {
+//				try {
+//					writer.append(gson.toJson(n));
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			});
+//
+//			writer.close();
+//			System.out.println("Deleted: " + song.getName() + ", by " +song.getArtist() + "\nFrom: " + FILE_PATH);
+//		}
+//	}
 
 	/**
 	 * Deletes all content from JSON file
