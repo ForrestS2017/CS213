@@ -59,7 +59,7 @@ public class ListController {
 			public int compare(Object o1, Object o2) {
 				String x1 = ((Song) o1).getName();
 				String x2 = ((Song) o2).getName();
-				int sComp = x1.compareTo(x2);
+				int sComp = x1.compareToIgnoreCase(x2);
 
 				if (sComp != 0) {
 					return sComp;
@@ -67,7 +67,7 @@ public class ListController {
 
 				x1 = ((Song) o1).getArtist();
 				x2 = ((Song) o2).getArtist();
-				return x1.compareTo(x2);
+				return x1.compareToIgnoreCase(x2);
 			}});
 	}
 
@@ -103,7 +103,7 @@ public class ListController {
 					if (item == null || empty) {
 						setText(null);
 					} else {
-						setText(item.getName() + " " + item.getArtist());
+						setText(item.getName() + ", by " + item.getArtist());
 					}
 				}
 			};
@@ -157,6 +157,7 @@ public class ListController {
 		{
 			SongLibUtil.AddSong(newSong);
 			obsList.add(newSong);
+			order(obsList);
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
