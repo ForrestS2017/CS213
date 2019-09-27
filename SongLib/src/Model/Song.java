@@ -12,13 +12,13 @@ public class Song {
 	/**
 	 * Required fields for a song
 	 */
-	private String album, artist, name, year, ID;
+	private String name, artist, album, year, ID;
 	
-	public Song(String album, String artist, String name, String year)
+	public Song(String name, String album, String artist, String year)
 	{
-		this.album = album;
-		this.artist = artist;
 		this.name = name;
+		this.artist = artist;
+		this.album = album;
 		this.year = year;
 		
 		String id = UUID.randomUUID().toString();
