@@ -67,7 +67,6 @@ public class ListController {
 			}
 			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
 				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) == 0) {
-					System.out.println("Duplicate. Not adding");
 					return false;
 				}
 				else if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
@@ -76,7 +75,7 @@ public class ListController {
 				}
 			}
 		}
-		obsList.add(obsList.size(), song); //Since this was reached it must be the last alphabetically
+		obsList.add(obsList.size(), song); //Since this was reached it must be the highest value alphabetically
 		return true;
 	}
 
@@ -93,9 +92,10 @@ public class ListController {
 		Gson gson = new GsonBuilder().create();
 		JsonStreamParser p = new JsonStreamParser(r);
 
+		//Convert all data into Song objects from SongList.JSON
 		ArrayList<Song> songObjs = new ArrayList<Song>();
-		if(is.available() !=0) {
-			while (p.hasNext()) { //Convert all data into Song objects from SongList.JSON
+		if(is.available() != 0) {
+			while (p.hasNext()) {
 				JsonElement e = p.next();
 				if (e.isJsonObject()) {
 					Song newSong = gson.fromJson(e, Song.class);
@@ -104,6 +104,7 @@ public class ListController {
 			}
 		}
 
+		//Turn song data into ListCells
 		listView.setItems(obsList);
 		listView.setCellFactory((list) -> {
 			return new ListCell<Song>() {
@@ -127,7 +128,22 @@ public class ListController {
 		//Select first song in list
 		listView.getSelectionModel().select(0);
 	}
-	
+
+	/**
+	 * Make sure song and artist are not blank
+	 * Return true if valid, else return false
+	 */
+	private boolean validate()
+	{
+		if(song.getText().isBlank() || artist.getText().isBlank()){ //One of the fields is blank
+			System.out.println("Please fill in song and artist fields");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	/**
 	 * @param selectedSong
 	 * Show selected song in details pane
@@ -139,24 +155,60 @@ public class ListController {
 		album.setText(selectedSong.getAlbum());
 		year.setText(selectedSong.getYear());
 	}
-	
+
+	/**
+	 * Add new song with the details in the text areas
+	 */
+	@FXML
+	private void AddSong()
+	{
+		if(!validate()){
+			return;
+		}
+		Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
+		try
+		{
+			if(insertAlphabetically(newSong)) { //Inserts the new song in the correct place of the array list
+				System.out.println("Added Song: "+song.getText());
+			}
+			else {
+				showAlert("Duplicate error", "Song/artist must be unique");
+			}
+			SongLibUtil.WriteToJSON(obsList, newSong); //Write the new JSON file with the added song
+			System.out.println("Appended: " + newSong.getName() + "\nTo: " + FILE_PATH);
+		} catch (Exception e)
+		{
+			System.out.println("Oops: " + e.toString());
+		}
+	}
+
 	/**
 	 * Update the current song with details in the text areas
 	 */
 	@FXML
 	private void UpdateSong()
 	{
+		if(!validate()){
+			return;
+		}
 		Song selected = listView.getSelectionModel().getSelectedItem();
 		try
 		{
 			Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
-			if (insertAlphabetically(newSong)) { //If update is not a duplicate, then remove the selected song. Else, show duplicate error
+			if(selected.getName().equals(song.getText()) && selected.getArtist().equals(artist.getText())) { //If update is only updating album/year then don't need to check for duplicates or sort
+				 selected.setAlbum(album.getText());
+				 selected.setYear(year.getText());
+				 SongLibUtil.WriteToJSON(obsList, selected);
+			}
+			else if (insertAlphabetically(newSong)) { //If update is not a duplicate, then remove the selected song. Else, show duplicate error
 				obsList.remove(selected);
+				SongLibUtil.WriteToJSON(obsList, selected);
+				System.out.println("Song updated");
 			}
-			else {
-				System.out.println("Duplicate error");
+			else { //If this case is reached, song must be a duplicate
+				showAlert("Duplicate error", "Song/artist must be unique");
 			}
-			SongLibUtil.WriteToJSON(obsList, selected);
+
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
@@ -174,30 +226,12 @@ public class ListController {
 		{
 			obsList.remove(selected);
 			SongLibUtil.WriteToJSON(obsList, selected);
+			System.out.println("Deleted Song: "+song.getText());
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
 		}
 
-	}
-	
-	/**
-	 * Add new song with the details in the text areas
-	 */
-	@FXML
-	private void AddSong()
-	{
-		System.out.println("Adding Song");
-		Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
-		try
-		{
-			insertAlphabetically(newSong); //Inserts the new song in the correct place of the array list
-			SongLibUtil.WriteToJSON(obsList, newSong);
-			System.out.println("Appended: " + newSong.getName() + "\nTo: " + FILE_PATH);
-		} catch (Exception e)
-		{
-			System.out.println("Oops: " + e.toString());
-		}
 	}
 
 	/**
@@ -208,10 +242,23 @@ public class ListController {
 	{
 		try
 		{
+			obsList.clear();
 			SongLibUtil.DeleteAll();
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
 		}
 	}
+
+	/**
+	 * Alerts for when user inputs non-kosher data
+	 */
+	private void showAlert(String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Alert");
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
 }
+
