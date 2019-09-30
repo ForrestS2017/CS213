@@ -51,25 +51,33 @@ public class ListController {
 	@FXML
 	TextArea song, artist, album, year;
 
-	private void insertAlphabetically(Song song) {
+	/**
+	 * Method to insert new songs into the correct place in obsList
+	 * @param song
+	 */
+	private boolean insertAlphabetically(Song song) {
 		if(obsList.size() == 0) {
 			obsList.add(0, song);
-			return;
+			return true;
 		}
 		for (int i=0; i<obsList.size(); i++) {
 			if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) < 0) {
 				obsList.add(i, song);
-				return;
+				return true;
 			}
 			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
-				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
+				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) == 0) {
+					System.out.println("Duplicate. Not adding");
+					return false;
+				}
+				else if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
 					obsList.add(i, song);
-					return;
+					return true;
 				}
 			}
 		}
 		obsList.add(obsList.size(), song); //Since this was reached it must be the last alphabetically
-		return;
+		return true;
 	}
 
 	/**
@@ -138,6 +146,21 @@ public class ListController {
 	@FXML
 	private void UpdateSong()
 	{
+		Song selected = listView.getSelectionModel().getSelectedItem();
+		try
+		{
+			Song newSong = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
+			if (insertAlphabetically(newSong)) { //If update is not a duplicate, then remove the selected song. Else, show duplicate error
+				obsList.remove(selected);
+			}
+			else {
+				System.out.println("Duplicate error");
+			}
+			SongLibUtil.WriteToJSON(obsList, selected);
+		} catch (Exception e)
+		{
+			System.out.println("Oops: " + e.toString());
+		}
 	}
 	
 	/**
@@ -170,6 +193,7 @@ public class ListController {
 		{
 			insertAlphabetically(newSong); //Inserts the new song in the correct place of the array list
 			SongLibUtil.WriteToJSON(obsList, newSong);
+			System.out.println("Appended: " + newSong.getName() + "\nTo: " + FILE_PATH);
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
