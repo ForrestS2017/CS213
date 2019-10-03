@@ -109,7 +109,8 @@ public class ListController {
 	private boolean validate()
 	{
 		if(song.getText().isBlank() || artist.getText().isBlank()){ //One of the fields is blank
-			System.out.println("Please fill in song and artist fields");
+			showAlert("Invalid Input", "Both song name and artist are required to add song");
+			System.out.println("OOps: Missing song name or artist.");
 			return false;
 		}
 		else {
