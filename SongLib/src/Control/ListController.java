@@ -150,6 +150,7 @@ public class ListController {
 	 */
 	private void showItem(Song selectedSong)
 	{
+		if(selectedSong == null) return;
 		song.setText(selectedSong.getName());
 		artist.setText(selectedSong.getArtist());
 		album.setText(selectedSong.getAlbum());

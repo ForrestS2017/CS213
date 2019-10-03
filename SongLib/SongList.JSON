@@ -1,11 +1,21 @@
 {
-  "name": "Beat it",
-  "artist": "Ozzy Osbourne",
-  "album": "Yeezus",
-  "year": "2018"
-}{
-  "name": "Test",
-  "artist": "Testers",
-  "album": "22",
-  "year": "22"
-}
+    "name": "Beat it",
+    "artist": "Ozzy Osbourne",
+    "album": "Yeezus",
+    "year": "2019"
+  }{
+    "name": "Down Once More / Track Down This Murderer",
+    "artist": "Andrew Lloyed Webber",
+    "album": "Selections from Phantom of the Opera 25th Anniversary",
+    "year": "2005"
+  }{
+    "name": "Live and Learn",
+    "artist": "Crush 40",
+    "album": "The Best of Crush 40: Super Sonic Songs",
+    "year": "2009"
+  }{
+    "name": "Test",
+    "artist": "Testers",
+    "album": "22",
+    "year": "22"
+  }
