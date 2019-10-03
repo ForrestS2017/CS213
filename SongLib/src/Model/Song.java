@@ -1,18 +1,18 @@
-package Model;
-
-import java.util.UUID;
-
 /**
  * @author Forrest Smith
  * @author Jim Tang
  */
+
+package Model;
+
+import java.util.UUID;
 
 public class Song {
     
 	/**
 	 * Required fields for a song
 	 */
-	private String name, artist, album, year, ID;
+	private String name, artist, album, year;
 	
 	public Song(String name, String artist, String album, String year)
 	{
@@ -20,9 +20,6 @@ public class Song {
 		this.artist = artist;
 		this.album = album;
 		this.year = year;
-		
-		String id = UUID.randomUUID().toString();
-		ID = id.isEmpty() ? id : null;
 	}
 
 	public void setAlbum(String album) {
@@ -59,19 +56,5 @@ public class Song {
 
 	public String getYear() {
 		return this.year;
-	}
-
-	public String getID() {
-		return this.ID;
-	}
-
-	/**
-	 * @param song the song to compare this song to
-	 * @return true if the song exists already
-	 */
-	public boolean compareSong(Song song)
-	{
-		// TODO: By name & artist? Or UUID?
-		return true;
 	}
 }

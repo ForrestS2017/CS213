@@ -1,3 +1,8 @@
+/**
+ * @author Forrest Smith
+ * @author Jim Tang
+ */
+
 package App;
 
 import Control.ListController;
@@ -6,11 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-/**
- * @author Forrest Smith
- * @author Jim Tang
- */
 
 public class SongLib extends Application {
 

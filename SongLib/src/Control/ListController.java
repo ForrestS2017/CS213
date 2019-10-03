@@ -1,3 +1,8 @@
+/**
+ * @author Forrest Smith
+ * @author Jim Tang
+ */
+
 package Control;
 
 import Model.Song;
@@ -15,10 +20,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- * @author Forrest Smith
- * @author Jim Tang
- */
 
 public class ListController {
 	/**
@@ -50,41 +51,13 @@ public class ListController {
 	 */
 	@FXML
 	TextArea song, artist, album, year;
-
-	/**
-	 * Method to insert new songs into the correct place in obsList
-	 * @param song
-	 */
-	private boolean insertAlphabetically(Song song) {
-		if(obsList.size() == 0) {
-			obsList.add(0, song);
-			return true;
-		}
-		for (int i=0; i<obsList.size(); i++) {
-			if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) < 0) {
-				obsList.add(i, song);
-				return true;
-			}
-			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
-				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) == 0) {
-					return false;
-				}
-				else if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
-					obsList.add(i, song);
-					return true;
-				}
-			}
-		}
-		obsList.add(obsList.size(), song); //Since this was reached it must be the highest value alphabetically
-		return true;
-	}
+	
+	private static final String FILE_PATH = "SongList.JSON";
+	private InputStream Reader;
 
 	/**
 	 * Initialize list	
 	 */
-	private static final String FILE_PATH = "SongList.JSON";
-	private InputStream Reader;
-
 	public void start(Stage mainStage) throws IOException {
 		obsList = FXCollections.observableArrayList();
 		InputStream is = new FileInputStream(FILE_PATH);
@@ -131,7 +104,7 @@ public class ListController {
 
 	/**
 	 * Make sure song and artist are not blank
-	 * Return true if valid, else return false
+	 * @return true if valid, else return false
 	 */
 	private boolean validate()
 	{
@@ -173,7 +146,7 @@ public class ListController {
 				System.out.println("Added Song: "+song.getText());
 			}
 			else {
-				showAlert("Duplicate error", "Song/artist must be unique");
+				showAlert("Duplicate error", "Song/Artist must be unique");
 			}
 			SongLibUtil.WriteToJSON(obsList, newSong); //Write the new JSON file with the added song
 			System.out.println("Appended: " + newSong.getName() + "\nTo: " + FILE_PATH);
@@ -207,7 +180,7 @@ public class ListController {
 				System.out.println("Song updated");
 			}
 			else { //If this case is reached, song must be a duplicate
-				showAlert("Duplicate error", "Song/artist must be unique");
+				showAlert("Duplicate error", "Song/Artist must be unique");
 			}
 
 		} catch (Exception e)
@@ -249,6 +222,34 @@ public class ListController {
 		{
 			System.out.println("Oops: " + e.toString());
 		}
+	}
+
+	/**
+	 * @param song
+	 * Method to insert new songs into the correct place in obsList
+	 */
+	private boolean insertAlphabetically(Song song) {
+		if(obsList.size() == 0) {
+			obsList.add(0, song);
+			return true;
+		}
+		for (int i=0; i<obsList.size(); i++) {
+			if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) < 0) {
+				obsList.add(i, song);
+				return true;
+			}
+			else if (song.getName().compareToIgnoreCase(obsList.get(i).getName()) == 0) {
+				if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) == 0) {
+					return false;
+				}
+				else if (song.getArtist().compareToIgnoreCase(obsList.get(i).getArtist()) < 0) {
+					obsList.add(i, song);
+					return true;
+				}
+			}
+		}
+		obsList.add(obsList.size(), song); //Since this was reached it must be the highest value alphabetically
+		return true;
 	}
 
 	/**

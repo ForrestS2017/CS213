@@ -1,3 +1,8 @@
+/**
+ * @author Forrest Smith
+ * @author Jim Tang
+ */
+
 package Util;
 
 import Model.Song;
@@ -8,18 +13,17 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 
-/**
- * @author Forrest Smith
- * @author Jim Tang
- */
-
 public class SongLibUtil {
     // TODO
 	
 	private static final String FILE_PATH = "SongList.JSON";
 
-	//My reasoning for using this instead of the add/write method is that it's easier to just rewrite the file each time since
-	//the songs have to be in alphabetical order. Would be a pain to append to the correct place in the JSON file for every insert
+	/**
+	 * @param songList the current list of songs to be stored once updated
+	 * @param song the song to be added to the list of songs
+	 * @return List of stored songs
+	 * Write new song details to JSON file
+	 */
 	public static void WriteToJSON(ObservableList<Song> songList, Song song) throws IOException
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -37,7 +41,7 @@ public class SongLibUtil {
 	
 	/**
 	 * @return List of stored songs
-	 * Write new song details to JSON file
+	 * Load song details from JSON file
 	 */
 	public static ObservableList<Song> LoadSongs() throws IOException
 	{
