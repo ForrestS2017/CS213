@@ -60,7 +60,16 @@ public class ListController {
 	 */
 	public void start(Stage mainStage) throws IOException {
 		obsList = FXCollections.observableArrayList();
-		InputStream is = new FileInputStream(FILE_PATH);
+		InputStream is;
+		try
+		{
+			is = new FileInputStream(FILE_PATH);
+		}
+		catch (FileNotFoundException e)
+		{
+			FileWriter file = new FileWriter(FILE_PATH);
+			is = new FileInputStream(FILE_PATH);						
+		}
 		Reader r = new InputStreamReader(is, "UTF-8");
 		Gson gson = new GsonBuilder().create();
 		JsonStreamParser p = new JsonStreamParser(r);
@@ -144,14 +153,13 @@ public class ListController {
 		try
 		{
 			if(insertAlphabetically(newSong)) { //Inserts the new song in the correct place of the array list
-				showAlert("Add Song", "New Song Added");
-				System.out.println("Added Song: "+song.getText());
+				SongLibUtil.WriteToJSON(obsList, newSong); //Write the new JSON file with the added song
+				showAlert("Add Song", "Added: " + newSong.getName());
+				System.out.println("Added Song: " + newSong.getName() + "\nTo: " + FILE_PATH);
 			}
 			else {
 				showAlert("Duplicate error", "Song/Artist must be unique");
 			}
-			SongLibUtil.WriteToJSON(obsList, newSong); //Write the new JSON file with the added song
-			System.out.println("Appended: " + newSong.getName() + "\nTo: " + FILE_PATH);
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
@@ -202,8 +210,8 @@ public class ListController {
 		{
 			obsList.remove(selected);
 			SongLibUtil.WriteToJSON(obsList, selected);
-			showAlert("Deletee Song", "New Song deleted");
-			System.out.println("Deleted Song: "+song.getText());
+			showAlert("Delete Song", "Deleted: " + selected.getName());
+			System.out.println("Deleted Song: " + selected.getName() + "\nFrom: " + FILE_PATH);
 		} catch (Exception e)
 		{
 			System.out.println("Oops: " + e.toString());
