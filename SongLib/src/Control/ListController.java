@@ -144,6 +144,7 @@ public class ListController {
 		try
 		{
 			if(insertAlphabetically(newSong)) { //Inserts the new song in the correct place of the array list
+				showAlert("Add Song", "New Song Added");
 				System.out.println("Added Song: "+song.getText());
 			}
 			else {
@@ -201,6 +202,7 @@ public class ListController {
 		{
 			obsList.remove(selected);
 			SongLibUtil.WriteToJSON(obsList, selected);
+			showAlert("Deletee Song", "New Song deleted");
 			System.out.println("Deleted Song: "+song.getText());
 		} catch (Exception e)
 		{
